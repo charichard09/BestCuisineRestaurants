@@ -1,0 +1,82 @@
+Best Restaurants by Cuisine
+
+Create a website where users can add their favorite restaurants based on the type of cuisine they offer.
+	
+
+Add a Cuisine class. Build out all CRUD functionality (Create, Read, Update, Delete) for this class. Remember that "Read" means to view a particular cuisine and to list out all of the cuisines.
+
+Add a Restaurant class. Build out all CRUD functionality for this class.
+
+Add properties other than name to your Restaurant class so that you can display descriptive information about the restaurants.
+
+Make the connection between a cuisine and a restaurant in the database. A cuisine can have many restaurants, but a restaurant can only be attached to one cuisine.
+
+Allow a user to search for all of a cuisine's restaurants.
+
+
+
+
+// create schema
+> create best_cuisine_restaurants schema
+	create	table cuisines /w CuisineId, Cuisine
+		create table restaurants /w RestaurantId, Name, BestDish, CuisineId
+			update appsettings.json with db name
+
+// in Program.cs, update builder.Services.AddDbContext<T>... where T is BestCuisineRestaurantContext
+
+// database context
+create BestCuisineRestaurantContext.cs /w DbSet<Cuisine> Cuisines, DbSet<Restuarant> Restaurants
+
+
+// create entities
+create Cuisine.cs entity /w properties CuisineId, Cuisine, List<Restaurant> Restaurants  
+	create Restaurant.cs entity /w properties RestaurantId, Name, BestDish, CuisineId
+				
+// create controller and corresponding views
+> create HomeController and Views
+	HomeController:
+	create Index() action
+	
+	Views:
+	create Index.cshtml /w link to "view all cuisines"
+
+> create Cuisines Controller and Views
+	create Index() action
+		create Index.cshtml /w link "create new Cuisine type"
+
+	create Create() action
+		create Create.cshtml /w form
+
+	create [HttpPost] Create() action
+
+	create Details() action
+		create Details.cshtml /w ?
+
+	create Delete() action
+		create Delete.cshtml
+
+	create Edit() action
+		create Edit.cshtml
+
+	create [HttpPost] Edit() action
+
+
+
+> create Restaurant Controller and Views
+	create Index() action
+	create Index.cshtml /w link "create new Cuisine type"
+
+	create Create() action
+		create Create.cshtml /w form
+
+	create [HttpPost] Create() action
+
+	create Details() action
+		create Details.cshtml /w ?
+
+	create Delete() action
+
+	create Edit() action
+		create Edit.cshtml
+
+	create [HttpPost] Edit() action
