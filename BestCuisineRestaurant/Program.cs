@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ToDoList.Models;
+using BestCuisineRestaurants.Models;
 
-namespace ToDoList
+namespace BestCuisineRestaurants
 {
   class Program
   {

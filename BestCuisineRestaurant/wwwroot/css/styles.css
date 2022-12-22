@@ -1,0 +1,11 @@
+body {
+  background-color: blanchedalmond;
+}
+
+.navbar-expand-lg {
+  margin-bottom: 20px;
+}
+
+.jumbotron {
+  background: url("BestCuisineRestaurant/wwwroot/Assets/restaurant-bg.jpg");
+}

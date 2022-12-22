@@ -3,8 +3,9 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BestCuisineRestaurants.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace BestCuisineRestaurants.Controller
+namespace BestCuisineRestaurants.Controllers
 {
   public class RestaurantsController : Controller
   {
@@ -20,20 +21,21 @@ namespace BestCuisineRestaurants.Controller
       List<Restaurant> model = _db.Restaurants
                                   .Include(restaurant => restaurant.Cuisine)
                                   .ToList();
-      ViewBag.PageTitle = "View All Restaurants"
+      ViewBag.PageTitle = "View All Restaurants";
       return View(model);
     }
 
     public ActionResult Create()
     {
-      ViewBag.CuisineId = new SelectList(_db.Cuisines, "CuisineId", "Cuisine")
+      ViewBag.CuisineId = new SelectList(_db.Cuisines, "CuisineId", "CuisineType");
+      ViewBag.PageTitle = "Create New Restaurant";
       return View();
     }
 
     [HttpPost]
     public ActionResult Create(Restaurant restaurant)
     {
-      if (restaurant.Cuisine == 0)
+      if (restaurant.CuisineId == 0)
       {
         return RedirectToAction("Create");
       }
@@ -47,12 +49,14 @@ namespace BestCuisineRestaurants.Controller
       Restaurant thisRestaurant = _db.Restaurants
                                   .Include(restaurant => restaurant.Cuisine)
                                   .FirstOrDefault(restaurant => restaurant.RestaurantId == id);
+      ViewBag.PageTitle = thisRestaurant.Name;
       return View(thisRestaurant);
     }
 
     public ActionResult Delete(int id)
     {
       Restaurant thisRestaurant = _db.Restaurants.FirstOrDefault(restaurant => restaurant.RestaurantId == id);
+      ViewBag.PageTitle = $"Delete {thisRestaurant.Name}";
       return View(thisRestaurant);
     }
 
@@ -61,6 +65,22 @@ namespace BestCuisineRestaurants.Controller
     {
       Restaurant thisRestaurant = _db.Restaurants.FirstOrDefault(restaurant => restaurant.RestaurantId == id);
       _db.Restaurants.Remove(thisRestaurant);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public ActionResult Edit(int id)
+    {
+      Restaurant thisRestaurant = _db.Restaurants.FirstOrDefault(restaurant => restaurant.RestaurantId == id);
+      ViewBag.CuisineId = new SelectList(_db.Cuisines, "CuisineId", "CuisineType");
+      ViewBag.PageTitle = $"Edit {thisRestaurant.Name}";
+      return View(thisRestaurant);
+    }
+
+    [HttpPost]
+    public ActionResult Edit(int id, Restaurant restaurant)
+    {
+      _db.Restaurants.Update(restaurant);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }

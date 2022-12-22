@@ -10,6 +10,8 @@
   @Html.LabelFor(model => model.Name)
   @Html.TextBoxFor(model => model.Name)
 
+  @Html.ValidationMessageFor(model => model.CuisineId, "Please select a cuisine!", new { @class = "text-danger"} )
+
   @Html.LabelFor(model => model.Cuisine)
   @Html.DropDownList("CuisineId")
 

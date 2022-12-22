@@ -9,9 +9,14 @@
   <link rel="stylesheet" href="~/css/styles.css">
 </head>
 
-<body>
-  @RenderBody()
-  <!-- @await Html.PartialAsync("Footer") -->
+<body class="text-center">
+    @await Html.PartialAsync("Navbar")
+    <div class="container">
+      <div class="jumbotron">
+        <h1 class="display-4">@ViewBag.PageTitle</h1>
+      </div>
+      @RenderBody()
+    </div>
 </body>
 
 </html>
